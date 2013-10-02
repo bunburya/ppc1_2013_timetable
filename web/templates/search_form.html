@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Generate PPC1 2013 timetable</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+</head>
+
+<body>
+    <ul>
+    {% for msg in error_msgs %}
+        <li><b><font color="red">{{ msg }}</font></b></li>
+    {% endfor %}
+    </ul>
+	<form name="search" action="/timetable" method="post">
+        <table border="1">
+            <tr>
+                <td colspan="2"><b>Select your groups</b></td>
+            </tr>
+            <tr>
+                <td>
+                    Tutorial group: 
+                    <select name="tutorial_group">
+                        <option value="1">01</option>
+                        <option value="2">02</option>
+                        <option value="3">03</option>
+                        <option value="4">04</option>
+                        <option value="5">05</option>
+                        <option value="6">06</option>
+                        <option value="7">07</option>
+                        <option value="8">08</option>
+                        <option value="9">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                </td>
+                <td>
+                    Skills Group: 
+                    <select name="seminar_group">
+                        <option value="Red A">Red A</option>
+                        <option value="Red B">Red B</option>
+                        <option value="Red C">Red C</option>
+                        <option value="Red D">Red D</option>
+                        <option value="Red E">Red E</option>
+                        <option value="Red F">Red F</option>
+                        <option value="Red G">Red G</option>
+                        <option value="Red H">Red H</option>
+                        <option value="Red K">Red K</option>
+                        <option value="Red L">Red L</option>
+                        <option value="Red M">Red M</option>
+                        <option value="Red N">Red N</option>
+                        <option value="Red O">Red O</option>
+                        <option value="Red P">Red P</option>
+                        <option value="Red Q">Red Q</option>
+                        <option value="Red R">Red R</option>
+                        <option value="Blue A">Blue A</option>
+                        <option value="Blue B">Blue B</option>
+                        <option value="Blue C">Blue C</option>
+                        <option value="Blue D">Blue D</option>
+                        <option value="Blue E">Blue E</option>
+                        <option value="Blue F">Blue F</option>
+                        <option value="Blue G">Blue G</option>
+                        <option value="Blue H">Blue H</option>
+                        <option value="Blue K">Blue K</option>
+                        <option value="Blue L">Blue L</option>
+                        <option value="Blue M">Blue M</option>
+                        <option value="Blue N">Blue N</option>
+                        <option value="Blue O">Blue O</option>
+                        <option value="Blue P">Blue P</option>
+                        <option value="Blue Q">Blue Q</option>
+                        <option value="Blue R">Blue R</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><b>Filter results</b></td>
+            </tr>
+            <tr>
+                <td rowspan="3">
+                    <b>Code</b><br>
+                    <input type="checkbox" name="code" value="CPD" checked> CPD (Continuing Professional Development)<br>
+                    <input type="checkbox" name="code" value="PPC1-LIT-CRIMI" checked> PPC1-LIT-CRIMI (Litigation: Criminal)<br>
+                    <input type="checkbox" name="code" value="Miscel" checked> Miscel (Miscellaneous)<br>
+                    <input type="checkbox" name="code" value="PPC1-SEMINAR" checked> PPC1-SEMINAR (Seminar)<br>
+                    <input type="checkbox" name="code" value="PPC1-C/SKILL-C" checked> PPC1-C/SKILL-C (Civil Advocacy Skills)<br>
+                    <input type="checkbox" name="code" value="PPC1-C/SKILLS-" checked> PPC1-C/SKILLS- (Legal Research Skills)<br>
+                    <input type="checkbox" name="code" value="PPC1-C/SKILL-N" checked> PPC1-C/SKILL-N (Negotiation Skills)<br>
+                    <input type="checkbox" name="code" value="PPC1-ALL" checked> PPC1-ALL (Applied Land Law: General)<br>
+                    <input type="checkbox" name="code" value="PPC1-C/SKILL-L" checked> PPC1-C/SKILL-L (Legal Presentation Skills)<br>
+                    <input type="checkbox" name="code" value="PPC1-LIT-CIVIL" checked> PPC1-LIT-CIVIL (Litigation: Civil)<br>
+                    <input type="checkbox" name="code" value="PPC1-C/SKILL-I" checked> PPC1-C/SKILL-I (Interviewing Skills)<br>
+                    <input type="checkbox" name="code" value="PPC1-LIT" checked> PPC1-LIT (Litigation: General)<br>
+                    <input type="checkbox" name="code" value="PPC1-P&T" checked> PPC1-P&T (Probate & Tax)<br>
+                    <input type="checkbox" name="code" value="PPC1-EU" checked> PPC1-EU (European Union)<br>
+                    <input type="checkbox" name="code" value="PPC1-C/SKILL-P" checked> PPC1-C/SKILL-P (Professional Development Skills)<br>
+                    <input type="checkbox" name="code" value="PPC1-LPI" checked> PPC1-LPI (Legal Practice Irish)<br>
+                    <input type="checkbox" name="code" value="PPC1-ALL-C" checked> PPC1-ALL-C (Applied Land Law: Conveyancing)<br>
+                    <input type="checkbox" name="code" value="PPC1-COMP" checked> PPC1-COMP (Competition)<br>
+                    <input type="checkbox" name="code" value="TRAINEESHIP" checked> TRAINEESHIP (Traineeship)<br>
+                    <input type="checkbox" name="code" value="PPC1-HR" checked> PPC1-HR (Human Rights)<br>
+                    <input type="checkbox" name="code" value="n/a" checked> n/a (No Assigned Code)<br>
+                    <input type="checkbox" name="code" value="PPC1-FC" checked> PPC1-FC (Induction)<br>
+                    <input type="checkbox" name="code" value="PPC1-ALL-L&T" checked> PPC1-ALL-L&T (Applied Land Law: Landlord & Tenant)<br>
+                    <input type="checkbox" name="code" value="PPC1-BL" checked> PPC1-BL (Business Law)<br>
+                    <input type="checkbox" name="code" value="PPC1-SDS" checked> PPC1-SDS (Student Development Service)<br>
+                </td>
+                <td valign="top">
+                    <b>Date</b><br>
+                    
+                    <input type="radio" name="date" value="all" checked> Any date<br>
+                    
+                    <input type="radio" name="date" value="today"> Today<br>
+                    
+                    <input type="radio" name="date" value="single"> On date:
+                    <input type="text" name="date_day" maxlength="2" size="2" value="dd"> /
+                    <input type="text" name="date_month" maxlength="2" size="2" value="mm"> /
+                    <input type="text" name="date_year" maxlength="4" size="4" value="yyyy"><br>
+                    
+                    <input type="radio" name="date" value="range"> Between
+                    <input type="text" name="date_start_day" maxlength="2" size="2" value="dd"> /
+                    <input type="text" name="date_start_month" maxlength="2" size="2" value="mm"> /
+                    <input type="text" name="date_start_year" maxlength="4" size="4" value="yyyy">
+                    and
+                    <input type="text" name="date_end_day" maxlength="2" size="2" value="dd"> /
+                    <input type="text" name="date_end_month" maxlength="2" size="2" value="mm"> /
+                    <input type="text" name="date_end_year" maxlength="4" size="4" value="yyyy">
+                    
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <b>Day of week</b><br>
+
+                    <input type="checkbox" name="weekday" value="0" checked>Monday<br>
+                    <input type="checkbox" name="weekday" value="1" checked>Tuesday<br>
+                    <input type="checkbox" name="weekday" value="2" checked>Wednesday<br>
+                    <input type="checkbox" name="weekday" value="3" checked>Thursday<br>
+                    <input type="checkbox" name="weekday" value="4" checked>Friday<br>
+                    <input type="checkbox" name="weekday" value="5" checked>Saturday<br>
+                    <input type="checkbox" name="weekday" value="6" checked>Sunday<br>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <b>Time</b><br>
+                    
+                    <input type="radio" name="time" value="all" checked> Any time<br>
+                    
+                    <input type="radio" name="time" value="range"> Starts / ends between
+                    <input type="text" name="time_start_hour" maxlength="2" size="2" value="hh"> :
+                    <input type="text" name="time_start_min" maxlength="2" size="2" value="mm">
+                    and
+                    <input type="text" name="time_end_hour" maxlength="2" size="2" value="hh"> :
+                    <input type="text" name="time_end_min" maxlength="2" size="2" value="mm">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
