@@ -208,9 +208,13 @@ class Day:
         'Sunday'
         ]
     
-    def __init__(self, week=EmptyValue, day_of_week=EmptyValue):
+    def __init__(self, week=EmptyValue, day_of_week=EmptyValue,
+                    date=EmptyValue):
         self.week = week
-        if day_of_week is not EmptyValue:
+        if date is not EmptyValue:
+            self.date = date
+            self.day_of_week = date.weekday()
+        elif day_of_week is not EmptyValue:
             self.date = week.commences + (one_day*day_of_week)
         else:
             self.date = None
@@ -260,7 +264,7 @@ class Day:
         return rows
     
     def filter(self, sq):
-        new_day = Day(self.week, self.date.weekday())
+        new_day = Day(self.week, date=self.date)
         for e in self.events:
             if sq.matches(e):
                 new_day.events.append(e)
@@ -385,6 +389,8 @@ class TimeRange:
         self.end = end
     
     def __contains__(self, t):
+        if t is None:
+            return False
         return self.start <= t <= self.end
     
     def __iter__(self):
@@ -432,7 +438,8 @@ class SearchQuery:
                 self.day_of_week,
                 self.week_num,
                 self.month,
-                self.daterange
+                self.daterange,
+                self.timerange
                 ))
     
     def __hash__(self):

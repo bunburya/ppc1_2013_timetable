@@ -15,14 +15,14 @@ tt = Timetable(TT_JSON_FILE)
 
 search_cache = {}
 
-def _get_date(request):
+def _add_date(request, terms):
     date = request.form.get('date')
     if date == 'all':
-        date_term = Any
+        terms['date'] = Any
     elif date == 'today':
-        date_term = datetime.date.today()
+        terms['date'] = datetime.date.today()
     elif date == 'single':
-        date_term = datetime.date(
+        terms['date'] = datetime.date(
             int(request.form.get('date_year')),
             int(request.form.get('date_month')),
             int(request.form.get('date_day')))
@@ -35,13 +35,12 @@ def _get_date(request):
             int(request.form.get('date_end_year')),
             int(request.form.get('date_end_month')),
             int(request.form.get('date_end_day')))
-        date_term = TimeRange(start, end)
-    return date_term
+        terms['daterange'] = TimeRange(start, end)
 
-def _get_timerange(request):
+def _add_timerange(request, terms):
     time = request.form.get('time')
     if time == 'all':
-        tr_term = Any
+        terms['timerange'] = Any
     elif time == 'range':
         start_hour = int(request.form.get('time_start_hour'))
         start_min = int(request.form.get('time_start_min'))
@@ -49,8 +48,7 @@ def _get_timerange(request):
         end_hour = int(request.form.get('time_end_hour'))
         end_min = int(request.form.get('time_end_min'))
         end = datetime.time(end_hour, end_min)
-        tr_term = TimeRange(start, end)
-    return tr_term
+        terms['timerange'] = TimeRange(start, end)
 
 @app.route('/')
 def main():
@@ -69,11 +67,11 @@ def handle_search():
     terms['code'] = MultiSearchTerm(*request.form.getlist('code'))
     terms['day_of_week'] = MultiSearchTerm(*(int(i) for i in request.form.getlist('weekday')))
     try:
-        terms['date'] = _get_date(request)
+        _add_date(request, terms)
     except ValueError:
         error_msgs.append('Invalid value for date.')
     try:
-        terms['timerange'] = _get_timerange(request)
+        _add_timerange(request, terms)
     except ValueError:
         error_msgs.append('Invalid value for time.')
         
@@ -85,12 +83,17 @@ def handle_search():
         query = SearchQuery(**terms)
         cached_result = search_cache.get(query)
         if cached_result:
+            #print('found cached result')
             return cached_result
         else:
             new_tt = tt.filter(query)
             result = new_tt.to_html()
             search_cache[query] = result
+            #print('caching result')
             return result
 
 if __name__ == '__main__':
+    from sys import argv
+    if '--debug' in argv:
+        app.debug = True
     app.run()
